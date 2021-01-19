@@ -1,0 +1,51 @@
+package student
+import com.learn.learndrools.drools.entity.Student
+
+
+rule "student_delete_age"
+    salience 20
+    when
+        $student: Student(age == 5)
+    then
+        retract($student); //删除工作内存中的数据
+        System.out.println("执行删除规则"+ $student);
+end
+
+//当前规则用于测试update内置方法: <10修改age=10
+rule "student_age_gt_10"
+    salience 10 //优先执行此规则. (默认规则是自上而下执行的)
+    no-loop true
+    activation-group "student_age"
+    when
+        $student: Student(age > 5 && age <10)
+    then
+        Student s = new Student();
+        s.setAge(15);
+        insert(s); //使用insert作用是向工作内存中插入Fact对象，会导致相关规则重新匹配
+        System.out.println("student age gt 10");
+end
+
+//当前规则用于测试update内置方法: 10<age>20
+rule "student_age_gt_10_and_gl_20"
+    no-loop true
+    activation-group "student_age"
+    when
+        $student: Student(age > 10 && age<20)
+    then
+        $student.setAge(25);
+        update($student)
+        System.out.println("student age gt 10 and gl 20");
+end
+
+
+//当前规则用于测试update内置方法: age>20
+rule "student_age_gt_20"
+    no-loop true
+    activation-group "student_age"
+    when
+        $student: Student( age>20)
+    then
+        $student.setAge(50);
+        System.out.println("student age > 20");
+end
+

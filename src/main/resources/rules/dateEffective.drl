@@ -1,0 +1,13 @@
+package dateEffectivetest
+import java.util.Date
+import java.text.SimpleDateFormat
+
+//测试dateeffective生效定时任务
+rule "dateEffective_1"
+    date-effective "2021-01-16 13:13" //用于制定当前规则生效时间
+    when
+    then
+        System.out.println("规则： timer_1 触发了"+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+end
+
+

@@ -1,0 +1,14 @@
+package dateExpireTest
+import java.util.Date
+import java.text.SimpleDateFormat
+
+//测试dateExpire失效时间定时任务
+rule "dateExpire_1"
+    date-expires "2021-01-16 13:21"
+    when
+    then
+        System.out.println("规则： date-expire 触发了");
+end
+
+
+

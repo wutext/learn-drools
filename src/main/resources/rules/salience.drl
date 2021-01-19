@@ -1,0 +1,26 @@
+package saliencetest
+
+//测试salience优先级
+rule "salience_rule_1"
+    salience 10
+    when
+        eval(true)
+    then
+        System.out.println("测试salince rule-1");
+end
+
+rule "salience_rule_2"
+    salience 5
+    when
+        eval(true)
+    then
+        System.out.println("测试salince rule-2");
+end
+
+rule "salience_rule_3"
+    salience 20
+    when
+        eval(true)
+    then
+        System.out.println("测试salince rule-3");
+end

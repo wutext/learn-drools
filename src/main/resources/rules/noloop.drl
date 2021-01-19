@@ -1,0 +1,14 @@
+package nolooptest
+import com.learn.learndrools.drools.entity.Student
+
+//测试noloop防止死循环属性
+rule "noloop_rule_1"
+    salience 10
+    no-loop true  //防止死循环属性
+    when
+        $student: Student(age == 50)
+    then
+        Thread.sleep(2000);
+        update($student); //update后会重新匹配加载的规则规则,就会产生死循环
+        System.out.println("规则: noloop_rule_1触发了");
+end

@@ -1,0 +1,54 @@
+package testlhs
+import com.learn.learndrools.drools.entity.Student
+
+//lhs规则: in使用
+rule "lhs_in"
+    when
+        $s: Student(name in ("张三","李四", "join"))
+    then
+        System.out.println("规则lhs触发了： in的使用方法");
+end
+
+rule "lhs_not_in"
+    when
+        $s: Student(name not in ("张三","李四", "join"))
+    then
+        System.out.println("规则lhs触发了： not in的使用方法");
+end
+
+rule "lhs_eval"
+    when
+        eval(false)
+    then
+        System.out.println("规则lhs触发了： eval的使用方法");
+end
+
+rule "lhs_not"
+    when
+        not Student()
+    then
+        System.out.println("规则lhs触发了： not的使用方法");
+end
+
+rule "lhs_exists"
+    when
+        exists Student()
+    then
+        System.out.println("规则lhs触发了： lhs_exists的使用方法");
+end
+
+rule "lhs_extend_1"
+    when
+        Student(age>10)
+    then
+        System.out.println("规则lhs触发了： lhs_extend_1的使用方法");
+end
+
+rule "lhs_extend_2" extends "lhs_extend_1"
+    when
+        Student(age < 20)
+    then
+        System.out.println("规则lhs触发了： lhs_extend_2的使用方法");
+end
+
+

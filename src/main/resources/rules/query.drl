@@ -1,0 +1,12 @@
+//用于测试query查询
+package testglobal
+import com.learn.learndrools.drools.entity.Student
+
+query "query_1"
+    $student: Student(age == 5)
+end
+
+//带有查询参数的query
+query "query_2"(String sname)
+    $student: Student(age > 21 && name==sname)
+end

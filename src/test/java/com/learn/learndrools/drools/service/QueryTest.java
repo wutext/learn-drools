@@ -1,0 +1,53 @@
+package com.learn.learndrools.drools.service;
+
+import com.learn.learndrools.drools.entity.Student;
+import org.drools.core.base.RuleNameStartsWithAgendaFilter;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.QueryResults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class QueryTest {
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    public void test_book_discount() {
+        System.setProperty("drools.dateformat","yyyy-MM-dd HH:mm");
+        KieServices kieServices = KieServices.Factory.get();
+        //获取Kie容器对象
+        KieContainer kieContainer = kieServices.newKieClasspathContainer();
+        //从Kie容器对象中获取回话对象
+        KieSession kieSession = kieContainer.newKieSession();
+
+        //Fact对象，事实对象
+        Student student = new Student();
+        student.setAge(25);
+        student.setName("张三");
+        //将Order对象插入到工作内存中
+        kieSession.insert(student);
+
+        QueryResults q1 = kieSession.getQueryResults("query_1");
+        int q1num = q1.size();
+        System.out.println("q1查询结果：" +q1num);
+
+        QueryResults q2 = kieSession.getQueryResults("query_2", "张三");
+        int q2num = q2.size();
+        System.out.println("q2查询结果：" +q2num);
+        kieSession.fireAllRules(new RuleNameStartsWithAgendaFilter("student_"));
+        kieSession.dispose();
+
+    }
+
+}

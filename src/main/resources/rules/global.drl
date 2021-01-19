@@ -1,0 +1,26 @@
+package testglobal
+import com.learn.learndrools.drools.entity.User
+import com.learn.learndrools.drools.service.UserService
+global java.lang.Integer count
+global java.util.List gList
+global UserService userService
+
+//测试noloop防止死循环属性
+rule "global_1"
+    when
+    then
+        count +=10; //对于全局包装类型的修改只对当前规则有效
+        System.out.println("global全局变量： " + count);
+        gList.add("zhangsan"); //集合类型修改后对全局所有地方的list生效
+        System.out.println("规则一中的gList:" +gList.size());
+        userService.save(count);
+end
+
+rule "global_2"
+    when
+    then
+        System.out.println("规则2中的count=:" + count);
+        System.out.println("gList中的元素："+gList.size());
+        userService.save(count);
+
+end

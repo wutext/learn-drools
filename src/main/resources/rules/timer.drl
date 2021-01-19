@@ -1,0 +1,21 @@
+package testtimer
+import java.util.Date
+import java.text.SimpleDateFormat
+
+//测试timer定时任务
+rule "timer_1"
+    timer(3s 2s) //当前timer表示3s后触发，每隔2s触发一次
+    when
+    then
+        System.out.println("规则： timer_1 触发了");
+end
+
+//测试timer定时任务
+rule "timer_2"
+    timer(cron: 0/5 * * * * ?) //当前timer表示3s后触发，每隔2s触发一次
+    when
+    then
+        System.out.println("规则： timer_cron 触发了"+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+end
+
+

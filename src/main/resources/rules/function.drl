@@ -1,0 +1,17 @@
+package testfunction
+import com.learn.learndrools.drools.entity.Student
+
+//测试function函数方法
+function String getNameResult(String name) {
+    return name+"hello";
+}
+
+rule "function_1"
+    when
+        $s: Student(age > 90)
+    then
+        String result = getNameResult($s.getName());
+        System.out.println(result);
+end
+
+

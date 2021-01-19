@@ -1,0 +1,33 @@
+package testagendagroup
+
+//测试noloop防止死循环属性
+rule "agendagroup_1"
+    agenda-group "agendagroup_1" //议程分组，只有获得焦点的组才可能被触发
+    when
+    then
+        System.out.println("规则： agendagroup_1");
+end
+
+rule "agendagroup_2"
+    agenda-group "agendagroup_1"
+    when
+        eval(false)
+    then
+        System.out.println("规则： agendagroup_2");
+end
+
+rule "agendagroup_3"
+    agenda-group "agendagroup_2"
+    auto-focus true //用于指定当前所属组自动获取焦点
+    when
+    then
+        System.out.println("规则： agendagroup_3");
+end
+
+rule "agendagroup_4"
+    agenda-group "agendagroup_2"
+    auto-focus false //用于指定当前所属组自动获取焦点
+    when
+    then
+        System.out.println("规则： agendagroup_4");
+end

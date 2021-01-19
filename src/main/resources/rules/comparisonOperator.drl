@@ -1,0 +1,47 @@
+package comparisonOperator
+import com.learn.learndrools.drools.entity.ComparisonOperator
+
+//测试比较操作符: contains
+rule "rule_comprison_contains"
+    when
+        ComparisonOperator(names contains "张三1")
+        or
+        ComparisonOperator(list contains names)
+    then
+        System.out.println("规则：rule_comparison_contains触发了...");
+end
+
+//测试比较操作符:  not contains
+rule "rule_comprison_not_contains"
+    when
+        ComparisonOperator(names not contains "张三1")
+    then
+        System.out.println("规则not contains：rule_comparison_contains触发了...");
+end
+
+
+//测试比较操作符: memberof
+rule "rule_comprison_menmberof"
+    when
+        ComparisonOperator(names memberOf list)
+    then
+        System.out.println("memberOf规则：rule_comprison_menmberof 触发了...");
+end
+
+//测试比较操作符: not memberof
+rule "rule_comprison_not_menmberof"
+    when
+        ComparisonOperator(names not memberOf list)
+    then
+        System.out.println("not memberOf规则：rule_comprison_menmberof 触发了...");
+end
+
+//测试比较操作符: matches
+rule "rule_comprison_matches"
+    when
+        ComparisonOperator(names matches "王.*")
+    then
+        System.out.println("matches规则：rule_comprison_matches 触发了...");
+end
+
+
